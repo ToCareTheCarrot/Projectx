@@ -6,8 +6,6 @@ export class AddEditForm extends React.Component{
     editText: this.props.projectText
   };
 
-  // text: this.props.projectText
-
   render(){
     if (this.props.onEdit){
       return (
@@ -24,7 +22,8 @@ export class AddEditForm extends React.Component{
               }}
             />
             <button
-              onClick={() => { //теперь на сабмит выбирает cancel,а не edit, но на клик по кнопке edit - всё правильно
+              type="submit"
+              onClick={() => { 
                 if(this.state.editText && this.state.editText.trim()){
                   this.props.onSave(this.state.editText);
                   this.setState({ editText: "" });
@@ -33,7 +32,7 @@ export class AddEditForm extends React.Component{
             >
               Submit
             </button>
-            <button onClick={() => this.props.onCancel()}>Cancel</button>
+            <button type="button" onClick={() => this.props.onCancel()}>Cancel</button>
           </div>
         </form>
       );
@@ -44,6 +43,7 @@ export class AddEditForm extends React.Component{
         <div>
           <label>Add a Project</label>
           <button 
+            type="button"
             onClick={() => this.props.onCancel()}
             className="form-add-edit-cancel-btn"
           >Cancel</button>
@@ -59,6 +59,7 @@ export class AddEditForm extends React.Component{
             }}
           />
           <button
+            type="submit"
             onClick={() => {
               if(this.state.addText && this.state.addText.trim()){
                 this.props.toAdd(this.state.addText);

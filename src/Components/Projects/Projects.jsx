@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Project } from './Project';
-import { AddEditForm } from './AddEditForm';
+import { AddEditForm } from '../AddEditForm/AddEditForm';
 
 export class Projects extends React.Component{
   state = {
@@ -33,6 +33,8 @@ export class Projects extends React.Component{
   }
 
   addProject = (projects, project) => {
+    console.log('id: ',project.id);
+
     return [...projects, project];
   }
 
@@ -44,7 +46,7 @@ export class Projects extends React.Component{
       projects: [
       ...projects.slice(0, projectIndex),
       ...projects.slice(projectIndex + 1)
-    ]})
+    ]});
   }
 
   editProject = (projects,id,fieldToUpdate) => {
@@ -62,12 +64,16 @@ export class Projects extends React.Component{
 
   render(){
     const {projects} = this.state;
+    const {isEdit} = this.state;
+
+    console.log('Projects: ',projects);
+    console.log('idToEdit: ',this.state.idToEdit);
 
     if (this.state.projectToAddOrEdit){
       return (
         <AddEditForm
 
-          onEdit={this.state.isEdit}
+          onEdit={isEdit}
           
           toAdd={text => {
             const project = {
@@ -87,8 +93,8 @@ export class Projects extends React.Component{
             
           }}
 
-          projectText={ //если удалить все проекты на странице и потом попытаться добавить новый проект - крашиться, потому что пока нет данных в state, а на след строке хочет найти в данных project.title, как поставить значение по умолчанию чтобы не крашилось?
-            projects.find(project => project.id === this.state.idToEdit).title
+          projectText = {
+            (Array.isArray(projects) && projects.length && isEdit) ? (projects.find(project => project.id === this.state.idToEdit).title) : ('')
           }
 
           onSave={title => {
@@ -97,7 +103,8 @@ export class Projects extends React.Component{
             this.setState({
               projects: copy,
               projectToAddOrEdit: false,
-              isEdit: false
+              isEdit: false,
+              idToEdit: 0
             })
           }}
 
