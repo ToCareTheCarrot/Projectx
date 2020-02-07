@@ -1,43 +1,30 @@
 import React from 'react';
 
-import {Project} from './Components/Project';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+import {Projects} from './Components/Projects/Projects';
+import {Sidebar} from './Components/Sidebar/Sidebar';
+import {Inbox} from './Components/Inbox/Inbox';
+import {Focus} from './Components/Focus/Focus';
+
 
 export class App extends React.Component{
-  state = {
-    projects: [
-      {id: 0, title: "Learn JS", done: true},
-      {id: 1, title: "Learn React", done: false},
-      {id: 2, title: "Learn React Router", done: false},
-      {id: 3, title: "Learn Redux", done: false},
-    ]
-  }
-
-  doneTask = (projects,id,fieldToUpdate) => {
- 
-    const indexToChange = projects.map(projects => projects.id).indexOf(id);
-    const projectToUpdate = projects[indexToChange];
-    const projectCopy = {...projectToUpdate,...{done: fieldToUpdate}};
-    const updateProjects = [
-      ...projects.slice(0,indexToChange),
-      projectCopy,
-      ...projects.slice(indexToChange+1)
-    ];
-    this.setState({projects: updateProjects});
-  }
 
   render(){
-    const {projects} = this.state;
-
     return (
-      <div className="App">
-        <h1 className="top">Projects:</h1>
-        {projects.map(project => (
-          <Project 
-            key={project.id} 
-            project={project}
-            doneTask={() => this.doneTask(this.state.projects, project.id, !project.done)}
-          />
-        ))}
+      <div className="main-layout">
+        <BrowserRouter>
+        <Sidebar/>
+          <Switch>
+            <Route exact path="/" render={() => <Projects/>} />
+            <Route path="/inbox" render={() => <Inbox/>} />
+            <Route path="/focus" render={() => <Focus/>} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
