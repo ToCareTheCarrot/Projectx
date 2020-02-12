@@ -7,6 +7,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.main-layout {
+  display:flex;
+  justify-content: flex-start;
+  width: 1000px;
+  height: 550px;
+  border: 1px solid black;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -17,42 +25,42 @@ code {
   user-select: none;
 }
 
-:root {
-  --text: #04395e;
+.root {
+  display: flex;
+  justify-content: center; 
 }
 
 .App {
-  margin: 30px 0 0 30px;
-  width: 500px;
-  border-radius: 10px;
-  box-shadow: 0 3px 15px #0000001a;
+  margin: 5px 0 0 0px;
+  width: 760px;
   overflow: hidden;
 }
 
 .top {
-  background: var(--text);
+  width: 625px;
+  background: #04395e;
   color: #ffffff;
   padding: 10px;
-  font-size: 28px;
+  font-size: 22px;
   margin: 0;
   font-weight: 500;
   border-radius: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
-.task-input {
+/* .project-input {
   border-radius: 5px;
   margin-top: 10px;
   background-color: var(--text);
   display: flex;
   padding: 5px;
-}
+} */
 
-.task-input * {
+/* .project-input * {
   border-radius: 5px;
-}
+} */
 
-.task-input input {
+/* .project-input input {
   width: 100%;
   border: none;
   padding: 5px;
@@ -61,7 +69,7 @@ code {
   color: var(--text);
 }
 
-.task-input button {
+.project-input button {
   background-color: transparent;
   border: none;
   font-size: 18px;
@@ -69,31 +77,43 @@ code {
   color: #ffffff;
   cursor: pointer;
   margin-left: 10px;
-}
+} */
 
-.task {
+.project {
   display: flex;
+  width: 635px;
   padding: 5px;
-  margin: 5px;
+  margin: 5px 0 5px 0px;
   border-radius: 5px;
   justify-content: space-between;
 }
 
-.task:hover {
+.project:hover {
   background-color: #04395e3d;
 }
 
-.task p {
+.project p {
   font-size: 18px;
   font-weight: 500;
   margin: 0;
+  margin-left: 20px;
   color: var(--text);
 }
 
-.task-done {
+.project-btns-container{
+  display:flex;
+  width:60px;
+  justify-content: space-between;
+} 
+
+.project-title-and-done-container{
+  display:flex;
+}
+
+.project-done {
   background-color: #00000027;
 }
-.task-done p {
+.project-done p {
   color: #00000050;
 }
 
@@ -104,4 +124,149 @@ code {
 .action-btn:hover {
   background-color: #04395e3d;
   border-radius: 5px;
+}
+
+.owner-photo {
+  width:100px;
+  height:100px;
+  border: 2px solid #04395e;
+  border-radius: 10px;
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  top: 5px;
+  left: 1030px;
+  background: url(./images/okay.jpg) no-repeat;
+  background-size: contain;
+}
+.owner-photo p {
+  position: absolute;
+  top: 85px;
+  left: 20px;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.form-add-edit {
+  display: flex;
+  flex-direction: column; 
+  justify-content: flex-start;
+  align-items: center;
+  width: 600px;
+  height: 400px;
+  border: 5px solid rgb(1, 2, 85);
+  border-radius: 30px;
+  margin-top: 5px;
+}
+
+.form-add-edit label {
+  margin: 30px 0 70px 0;
+  font-weight: bold;
+  color: rgb(32, 30, 30);
+  font-size: 36px;
+}
+
+.form-add-edit div {
+  display: flex;
+  align-items: center;
+}
+
+.form-add-edit input {
+  width: 300px;
+  height: 50px;
+  border: 5px solid rgb(1, 2, 85);
+  border-radius: 5px;
+  font-size: 26px;
+  padding-left: 10px;
+}
+
+.form-add-edit button {
+  width: 100px;
+  height: 62px;
+  border: 5px solid rgb(1, 2, 85);
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(32, 30, 30);
+}
+
+.form-add-edit .form-add-edit-cancel-btn {
+  position: relative;
+  top: -30px;
+  left: 120px;
+  width: 95px;
+  height: 50px;
+  border-radius: 0 15px 0 0;
+}
+
+.add-project {
+  display: flex;
+  align-items: center;
+  border: 1px dotted #04395e;
+  width: 250px;
+  height: 40px;
+  margin: 0 0 5px 15px;
+}
+
+.add-project-btn {
+  display: flex;
+  margin: 0 10px 0 10px;
+}
+
+.add-project-btn-text {
+  margin-left: 15px;
+}
+
+.sidebar {
+  /* display: flex; */
+  width:230px;
+  margin: 5px 0 0 5px;
+  /* border: 1px solid green; */
+}
+
+.sidebar-btn {
+  display: flex;
+  width:220px;
+  height: 50px;
+  border-bottom: 1px solid black;
+  background-color: rgb(245, 245, 245);
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.sidebar-btn-text{
+  margin: 0;
+  padding: 0;
+  color: black;
+}
+
+.sidebar-project {
+  display: flex;
+  width:220px;
+  height: 40px;
+  border-bottom: 1px dotted black;
+  background-color: rgb(243, 236, 236);
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.sidebar-project-text{
+  margin: 0;
+  padding: 0;
+  color: rgb(25, 25, 48);
+  font-size: 14px;
+}
+
+.focus {
+  width: 500px;
+  height: 500px;
+  background-color: blue;
+}
+
+.inbox {
+  width: 500px;
+  height: 500px;
+  background-color: rgb(255, 0, 0);
 }

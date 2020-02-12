@@ -1,18 +1,24 @@
 import React from 'react';
 
-import {Project} from './Components/Project';
+import {
+  BrowserRouter,
+  Route,
+  Switch
+} from 'react-router-dom';
+
+import {Projects} from './Components/Projects/Projects';
+import {Sidebar} from './Components/Sidebar/Sidebar';
+import {Inbox} from './Components/Inbox/Inbox';
+import {Focus} from './Components/Focus/Focus';
+
 
 export class App extends React.Component{
-  state = {
-    projects: [
-      {id: 0, title: "Learn JS", done: true},
-      {id: 1, title: "Learn React", done: false},
-      {id: 2, title: "Learn React Router", done: false},
-      {id: 3, title: "Learn Redux", done: false},
-    ]
-  }
 
-  doneTask = (projects,id,fieldToUpdate) => {
+  state = {
+    projects: [],
+  };
+
+  doneProject = (projects,id,fieldToUpdate) => {
  
     const indexToChange = projects.map(projects => projects.id).indexOf(id);
     const projectToUpdate = projects[indexToChange];
@@ -25,19 +31,59 @@ export class App extends React.Component{
     this.setState({projects: updateProjects});
   }
 
-  render(){
-    const {projects} = this.state;
+  addProject = (projects, project) => {
+    const newProjects = [...projects, project];
 
+    this.setState({
+      projects: newProjects
+    });
+  }
+
+  deleteProject = (projects, projectId) => {
+
+    const projectIndex = projects.findIndex(project => project.id === projectId);
+
+    this.setState({
+      projects: [
+      ...projects.slice(0, projectIndex),
+      ...projects.slice(projectIndex + 1)
+    ]});
+  }
+
+  editProject = (projects,id,fieldToUpdate) => {
+
+    const projectIndex = projects.findIndex(project => project.id === id);
+    const projectToUpdate = projects[projectIndex];
+    const projectCopy = {...projectToUpdate,...fieldToUpdate};
+
+    const copy = [
+      ...projects.slice(0, projectIndex),
+      projectCopy,
+      ...projects.slice(projectIndex + 1)
+    ];
+
+    this.setState({
+      projects: copy
+    })
+  }
+
+  render(){
     return (
-      <div className="App">
-        <h1 className="top">Projects:</h1>
-        {projects.map(project => (
-          <Project 
-            key={project.id} 
-            project={project}
-            doneTask={() => this.doneTask(this.state.projects, project.id, !project.done)}
-          />
-        ))}
+      <div className="main-layout">
+        <BrowserRouter>
+        <Sidebar projects={this.state.projects}/>
+          <Switch>
+            <Route exact path="/" render={() => <Projects 
+              projects={this.state.projects}
+              doneProject={this.doneProject}
+              deleteProject={this.deleteProject}
+              addProject={this.addProject}
+              editProject={this.editProject}
+              />} />
+            <Route path="/inbox" render={() => <Inbox/>} />
+            <Route path="/focus" render={() => <Focus/>} />
+          </Switch>
+        </BrowserRouter>
       </div>
     );
   }
