@@ -1,15 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export class SidebarButton extends React.Component{
-
-  render(){
+export const SidebarButton = ({...props}) => {
     return (
-      <NavLink to={this.props.to} className="sidebar-btn">
-        <h3 className="sidebar-btn-text">{this.props.name}</h3>
+      <NavLink to={props.to} className="sidebar-btn">
+        <h3 className="sidebar-btn-text">{props.name}</h3>
       </NavLink>    
     );
-  }
 }
 
 
